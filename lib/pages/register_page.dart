@@ -66,7 +66,7 @@ class RegisterPage extends StatelessWidget {
 
             /// login button
             MyButton(
-              text: 'Log In',
+              text: 'Sign Up',
               onTap: register,
             ),
             const SizedBox(height: 25),
