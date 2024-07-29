@@ -26,32 +26,28 @@ class LoginPage extends StatelessWidget {
 
     /// catch any errors
     catch (e) {
-      showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text(e.toString()),
-      ),);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .colorScheme
-          .background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             /// logo
             Icon(
               Icons.message,
               size: 60,
-              color: Theme
-                  .of(context)
-                  .colorScheme
-                  .primary,
+              color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(height: 50),
 
@@ -59,10 +55,7 @@ class LoginPage extends StatelessWidget {
             Text(
               "Welcome back, you've been missed",
               style: TextStyle(
-                  color: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary, fontSize: 16),
+                  color: Theme.of(context).colorScheme.primary, fontSize: 16),
             ),
             const SizedBox(height: 25),
 
@@ -85,7 +78,7 @@ class LoginPage extends StatelessWidget {
             /// login button
             MyButton(
               text: 'Log In',
-              onTap: ()=> login(context),
+              onTap: () => login(context),
             ),
             const SizedBox(height: 25),
 
@@ -95,20 +88,17 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   'Not a member?',
-                  style: TextStyle(color: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
                   onTap: onTap,
-                  child: Text('Register Now',
+                  child: Text(
+                    'Register Now',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme
-                            .of(context)
-                            .colorScheme
-                            .primary),),
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
                 ),
               ],
             )
