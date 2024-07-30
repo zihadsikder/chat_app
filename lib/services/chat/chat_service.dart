@@ -8,28 +8,14 @@ class ChatService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   /// get user stream
-  /*
- List<Map<String, dynamic> =
- [
- {
- 'email' : user@gmail.com
- 'id' : ..
- },
- {
- 'email' : user@gmail.com
- 'id' : ..
- }
- ]
-
- */
-
   Stream<List<Map<String, dynamic>>> getUsersStream() {
     return _firestore.collection("Users").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
-        /// go though each individual user
+        /// Go through each individual user
         final user = doc.data();
-
-        ///return user
+        //user['uid'] = doc.id; // Ensure UID is included in user data
+        print(
+            'Fetched user********************************: $user'); // Debug print
         return user;
       }).toList();
     });
@@ -44,8 +30,8 @@ class ChatService {
 
     /// create a new message
     Message newMessage = Message(
-      senderID: currentUserEmail,
-      senderEmail: currentUserId,
+      senderID: currentUserId,
+      senderEmail: currentUserEmail,
       receiverID: receiverID,
       message: message,
       timestamp: timestamp,

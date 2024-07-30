@@ -16,16 +16,19 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.tertiary,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text('Chats'),
+        title: const Text('Home'),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.grey,
+        elevation: 0,
       ),
       drawer: const MyDrawer(),
-
       body: _buildUserList(),
     );
   }
 
+  /// build a list of user expect for the current logged in user
   Widget _buildUserList() {
     return StreamBuilder(
         stream: _chatService.getUsersStream(),
@@ -44,7 +47,8 @@ class HomePage extends StatelessWidget {
           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
             return ListView(
               children: snapshot.data!
-                  .map<Widget>((userData) => _buildUserListItem(userData, context))
+                  .map<Widget>(
+                      (userData) => _buildUserListItem(userData, context))
                   .toList(),
             );
           } else {
@@ -57,23 +61,24 @@ class HomePage extends StatelessWidget {
   Widget _buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
     /// display all user except current user
-   if(userData["email"] != _authService.getCurrentUser()) {
-     return UserTile(
-       text: userData["email"],
-       onTap: () {
-         /// tapped to a user -> go to chat page
-         Navigator.push(
-           context,
-           MaterialPageRoute(
-             builder: (context) => ChatPage(
-               receiverEmail: userData["email"],
-             ),
-           ),
-         );
-       },
-     );
-   } else {
-     return Container();
-   }
+    if (userData["email"] != _authService.getCurrentUser()!.email) {
+      return UserTile(
+        text: userData["email"],
+        onTap: () {
+          /// tapped to a user -> go to chat page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                receiverEmail: userData["email"],
+                receiverID: userData["uid"],
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Container();
+    }
   }
 }

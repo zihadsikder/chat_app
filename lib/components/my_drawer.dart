@@ -6,7 +6,7 @@ import '../pages/settings_page.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-  void logout (){
+  void logout() {
     /// get auth service
     final _auth = AuthService();
     _auth.signOut();
@@ -24,11 +24,8 @@ class MyDrawer extends StatelessWidget {
               /// logo
               DrawerHeader(
                 child: Center(
-                    child: Icon(
-                  Icons.message,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 60,
-                )),
+                  child: Image.asset("assets/dash_logo.png"),
+                ),
               ),
 
               /// home list title
@@ -55,13 +52,18 @@ class MyDrawer extends StatelessWidget {
                     Navigator.pop(context);
 
                     ///navigate to setting page
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> SettingsPage(),),);
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingsPage(),
+                      ),
+                    );
                   },
                 ),
               ),
             ],
           ),
+
           /// logout list title
           Padding(
             padding: const EdgeInsets.only(left: 25.0, bottom: 25.0),

@@ -19,7 +19,7 @@ class AuthService {
         password: password,
       );
 
-      /// save user info if it dosen't already exits
+      /// save user info if it doesn't already exits
       _firestore.collection("Users").doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
@@ -59,3 +59,4 @@ class AuthService {
 
   /// errors
 }
+
