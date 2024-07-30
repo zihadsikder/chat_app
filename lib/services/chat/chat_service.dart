@@ -14,8 +14,22 @@ class ChatService {
         /// Go through each individual user
         final user = doc.data();
         //user['uid'] = doc.id; // Ensure UID is included in user data
-        print(
-            'Fetched user********************************: $user'); // Debug print
+        return user;
+      }).toList();
+    });
+  }
+
+  /// search users by name
+  Stream<List<Map<String, dynamic>>> searchUsersByName(String query) {
+    return _firestore
+        .collection('Users')
+        .where('username', isGreaterThanOrEqualTo: query)
+        .where('username', isLessThanOrEqualTo: query + '\uf8ff')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final user = doc.data();
+        user['uid'] = doc.id; // Ensure UID is included in user data
         return user;
       }).toList();
     });
