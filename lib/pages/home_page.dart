@@ -6,12 +6,22 @@ import 'package:flutter/material.dart';
 
 import '../components/user_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   /// chat & auth services
   final ChatService _chatService = ChatService();
+
   final AuthService _authService = AuthService();
+
+  final TextEditingController _searchController = TextEditingController();
+
+  String _searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,48 @@ class HomePage extends StatelessWidget {
         elevation: 0,
       ),
       drawer: const MyDrawer(),
-      body: _buildUserList(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  labelText: 'search...',
+                  labelStyle: TextStyle(color: Colors.grey.shade500),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
+                  filled: true,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade500,
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+              ),
+            ),
+            Expanded(child: _buildUserList()),
+          ],
+        ),
+      ),
     );
   }
 
