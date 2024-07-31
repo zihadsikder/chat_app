@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../themes/theme_provider.dart';
 
 class UserTile extends StatelessWidget {
   final String text;
@@ -8,26 +11,28 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode =
+        Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+          // decoration: BoxDecoration(
+          //   color: Theme.of(context).colorScheme.secondary,
+          //   borderRadius: BorderRadius.circular(4),
+          // ),
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 /// Icon
                 CircleAvatar(
                     radius: 16,
-                    backgroundColor: Theme.of(context).colorScheme.background,
-                    child: const Icon(
+                    backgroundColor: isDarkMode? Theme.of(context).colorScheme.secondary : Colors.white,
+                    child: Icon(
                       Icons.person,
                       size: 24,
-                      color: Colors.white,
+                      color: isDarkMode? Colors.white : Colors.black,
                     )),
                 const SizedBox(width: 8.0),
 

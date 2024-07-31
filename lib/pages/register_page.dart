@@ -4,19 +4,31 @@ import '../components/my_button.dart';
 import '../components/my_text_field.dart';
 import '../services/auth/auth_service.dart';
 
-class RegisterPage extends StatelessWidget {
-  ///mail and pw text controller
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pwController = TextEditingController();
-  final TextEditingController _confirmPwController = TextEditingController();
-
+class RegisterPage extends StatefulWidget {
   /// tap to go to login page
   final void Function()? onTap;
 
-  RegisterPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  ///mail and pw text controller
+  final TextEditingController _emailController = TextEditingController();
+
+  final TextEditingController _pwController = TextEditingController();
+
+  final TextEditingController _confirmPwController = TextEditingController();
+
+  bool _isLoading = false;
 
   /// register method
   void register(BuildContext context) {
+    setState(() {
+      _isLoading = true;
+    });
     /// get auth state
     final _auth = AuthService();
 
@@ -27,13 +39,26 @@ class RegisterPage extends StatelessWidget {
           _emailController.text,
           _pwController.text,
         );
-      } catch (e) {
+      }  catch (e) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(e.toString()),
+            title: const Text('Error'),
+            content: Text(e.toString()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
           ),
         );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
 
@@ -57,11 +82,7 @@ class RegisterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             /// logo
-            Icon(
-              Icons.message,
-              size: 60,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            Image.asset('assets/chat_logo.png'),
             const SizedBox(height: 50),
 
             /// welcome back message
@@ -97,7 +118,9 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 25),
 
             /// login button
-            MyButton(
+            _isLoading
+                ? const CircularProgressIndicator()
+                : MyButton(
               text: 'Sign Up',
               onTap: () => register(context),
             ),
@@ -113,7 +136,7 @@ class RegisterPage extends StatelessWidget {
                       TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
-                  onTap: onTap,
+                  onTap: widget.onTap,
                   child: Text(
                     'Login Now',
                     style: TextStyle(
