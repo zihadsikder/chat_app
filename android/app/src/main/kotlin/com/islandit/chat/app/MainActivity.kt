@@ -1,4 +1,4 @@
-package com.chat.app
+package com.islandit.chat.app
 
 import io.flutter.embedding.android.FlutterActivity
 
