@@ -3,11 +3,22 @@ import 'package:chat_app/themes/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../components/text_list_view.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
+
+  void _rateUs() async {
+    const url = 'https://play.google.com/store/apps/details?id=com.chat.app';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +36,25 @@ class SettingsPage extends StatelessWidget {
           TitleListView(
             text: 'Privacy Policy',
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivacyPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const PrivacyPage()));
             },
             icon: const Icon(Icons.privacy_tip_outlined),
           ),
           TitleListView(
             text: 'Rate Us',
-            onPressed: () {},
+            onPressed: () {
+              _rateUs();
+            },
             icon: const Icon(Icons.star_rate_outlined),
           ),
           TitleListView(
             text: 'Share',
-            onPressed: () {},
+            onPressed: () {
+              const appLink =
+                  'https://play.google.com/store/apps/details?id=com.chat.app';
+              Share.share('Check out this awesome app: $appLink');
+            },
             icon: const Icon(Icons.share_outlined),
           ),
         ],
