@@ -38,7 +38,7 @@ class PrivacyPage extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                    'We use email ID for sen & get message'),
+                    'We use email ID for sent & get message'),
                 Text(
                   '3. Sharing Your Information',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
