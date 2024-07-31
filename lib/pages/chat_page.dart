@@ -9,7 +9,7 @@ class ChatPage extends StatefulWidget {
   final String receiverEmail;
   final String receiverID;
 
-  ChatPage({
+  const ChatPage({
     super.key,
     required this.receiverEmail,
     required this.receiverID,
@@ -87,7 +87,7 @@ class _ChatPageState extends State<ChatPage> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text(widget.receiverEmail),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
         foregroundColor: Colors.grey,
         elevation: 0,
       ),

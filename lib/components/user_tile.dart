@@ -28,7 +28,7 @@ class UserTile extends StatelessWidget {
                 /// Icon
                 CircleAvatar(
                     radius: 16,
-                    backgroundColor: isDarkMode? Theme.of(context).colorScheme.secondary : Colors.white,
+                    backgroundColor: isDarkMode? Theme.of(context).colorScheme.secondary : Colors.grey.shade300,
                     child: Icon(
                       Icons.person,
                       size: 24,

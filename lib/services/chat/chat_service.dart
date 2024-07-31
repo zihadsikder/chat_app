@@ -77,5 +77,6 @@ class ChatService {
         .collection("message")
         .orderBy("timestamp", descending: false)
         .snapshots();
+
   }
 }
