@@ -48,38 +48,37 @@ class _HomePageState extends State<HomePage> {
 
   TextField buildTextField(BuildContext context) {
     return TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                fillColor: Theme.of(context).colorScheme.tertiary,
-                filled: true,
-                hintText: 'search...',
-                hintStyle: TextStyle(color: Colors.grey.shade500),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.grey.shade500,
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value;
-                });
-              },
-            );
+      controller: _searchController,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          borderRadius: BorderRadius.circular(32.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          borderRadius: BorderRadius.circular(32.0),
+        ),
+        fillColor: Theme.of(context).colorScheme.tertiary,
+        filled: true,
+        hintText: 'search...',
+        hintStyle: TextStyle(color: Colors.grey.shade500),
+        prefixIcon: Icon(
+          Icons.search,
+          color: Colors.grey.shade500,
+        ),
+      ),
+      onChanged: (value) {
+        setState(() {
+          _searchQuery = value;
+        });
+      },
+    );
   }
 
-  /// build a list of user except for the current logged in user
   Widget _buildUserList() {
     Stream<List<Map<String, dynamic>>> userStream;
 
@@ -92,17 +91,14 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder<List<Map<String, dynamic>>>(
       stream: userStream,
       builder: (context, snapshot) {
-        /// error
         if (snapshot.hasError) {
           return const Center(child: Text('Error...!'));
         }
 
-        /// loading..
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        /// return list view
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return ListView(
             children: snapshot.data!

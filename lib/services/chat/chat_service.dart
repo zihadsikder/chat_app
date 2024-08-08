@@ -23,17 +23,18 @@ class ChatService {
   Stream<List<Map<String, dynamic>>> searchUsersByName(String query) {
     return _firestore
         .collection('Users')
-        .where('username', isGreaterThanOrEqualTo: query)
-        .where('username', isLessThanOrEqualTo: query + '\uf8ff')
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final user = doc.data();
-        user['uid'] = doc.id; // Ensure UID is included in user data
-        return user;
-      }).toList();
+      return snapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .where((userData) {
+        String username = (userData['email'] as String).split('@')[0];
+        return username.toLowerCase().contains(query.toLowerCase());
+      })
+          .toList();
     });
   }
+
 
   /// send message
   Future<void> sendMessage(String receiverID, message) async {
