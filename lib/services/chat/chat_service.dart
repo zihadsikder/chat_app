@@ -21,20 +21,13 @@ class ChatService {
 
   /// search users by name
   Stream<List<Map<String, dynamic>>> searchUsersByName(String query) {
-    return _firestore
-        .collection('Users')
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => doc.data() as Map<String, dynamic>)
-          .where((userData) {
+    return _firestore.collection('Users').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => doc.data()).where((userData) {
         String username = (userData['email'] as String).split('@')[0];
         return username.toLowerCase().contains(query.toLowerCase());
-      })
-          .toList();
+      }).toList();
     });
   }
-
 
   /// send message
   Future<void> sendMessage(String receiverID, message) async {
@@ -78,6 +71,5 @@ class ChatService {
         .collection("message")
         .orderBy("timestamp", descending: false)
         .snapshots();
-
   }
 }

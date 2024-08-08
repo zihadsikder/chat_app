@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
               child: buildTextField(context),
             ),
             Expanded(child: _buildUserList()),
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildUserList() {
     Stream<List<Map<String, dynamic>>> userStream;
-
+    /// for search by user name
     if (_searchQuery.isEmpty) {
       userStream = _chatService.getUsersStream();
     } else {
@@ -102,7 +103,8 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return ListView(
             children: snapshot.data!
-                .map<Widget>((userData) => _buildUserListItem(userData, context))
+                .map<Widget>(
+                    (userData) => _buildUserListItem(userData, context))
                 .toList(),
           );
         } else {
@@ -112,51 +114,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// for search by user name
-  // Widget _buildUserList() {
-  //   Stream<List<Map<String, dynamic>>> userStream;
-  //
-  //   if (_searchQuery.isEmpty) {
-  //     userStream = _chatService.getUsersStream();
-  //   } else {
-  //     userStream = _chatService.searchUsersByName(_searchQuery);
-  //   }
-  //
-  //   return StreamBuilder<List<Map<String, dynamic>>>(
-  //     stream: userStream,
-  //     builder: (context, snapshot) {
-  //       if (snapshot.hasError) {
-  //         return const Center(child: Text('Error...!'));
-  //       }
-  //
-  //       if (snapshot.connectionState == ConnectionState.waiting) {
-  //         return const Center(child: CircularProgressIndicator());
-  //       }
-  //
-  //       if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-  //         return ListView(
-  //           children: snapshot.data!
-  //               .map<Widget>((userData) => _buildUserListItem(userData, context))
-  //               .toList(),
-  //         );
-  //       } else {
-  //         return const Center(child: Text('No users found'));
-  //       }
-  //     },
-  //   );
-  // }
-
   /// build individual list tile for user
-  Widget _buildUserListItem(Map<String, dynamic> userData, BuildContext context) {
+  Widget _buildUserListItem(
+      Map<String, dynamic> userData, BuildContext context) {
     /// display all user except current user
     if (userData["email"] != _authService.getCurrentUser()!.email) {
-
       /// Extract the username part before '@'
       String email = userData["email"];
       String username = email.split("@")[0];
 
+      /// Get the first letter of the email and capitalize it
+      String firstLetter = email[0].toUpperCase();
+
       return UserTile(
+        userText: firstLetter,
+        // Display the first letter of the email in uppercase
         text: username,
+        // Display the username (part before '@')
         onTap: () {
           /// tapped to a user -> go to chat page
           Navigator.push(
