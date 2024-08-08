@@ -1,16 +1,36 @@
-# chat_app
+# Flutter ChatApp
 
-A new Flutter project.
+A Flutter application to chat people each others.
+
+## Features
+
+- Using firebase database & authentication.
+- Real time chat functionality.
+- Responsive and clean UI design
+- State management using GetX
+
+## Play store Link(available on after 25th August, 2024)
+
+[Download the APK](https://play.google.com/store/apps/details?id=com.islandit.chat.app)
+
+## screenshots
+
+![Auth](assets/redmi/redmi1.png)
+![Screens](assets/redmi/redmi2.png)
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK: [Install Flutter](https://flutter.dev/docs/get-started/install)
+- An IDE such as VSCode or Android Studio
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/zihadsikder/chat_app
+   cd chat_app
+
